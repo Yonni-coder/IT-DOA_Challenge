@@ -1,35 +1,42 @@
 <?php
-/**
- * The base configuration for WordPress
- *
- * The wp-config.php creation script uses this file during the installation.
- * You don't have to use the website, you can copy this file to "wp-config.php"
- * and fill in the values.
- *
- * This file contains the following configurations:
- *
- * * Database settings
- * * Secret keys
- * * Database table prefix
- * * ABSPATH
- *
- * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/
- *
- * @package WordPress
- */
+// Charge l'autoload de Composer si disponible (vlucas/phpdotenv)
+if ( file_exists(__DIR__ . '/vendor/autoload.php') ) {
+    require_once __DIR__ . '/vendor/autoload.php';
 
-// ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'IT_DOA' );
+    // safeLoad() ne lance pas d'exception si .env est absent
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
+}
 
-/** Database username */
-define( 'DB_USER', 'root' );
+// --- Helpers pour récupérer les variables avec fallback ---
+function env($key, $default = null) {
+    $val = getenv($key);
+    if ($val === false) {
+        // essayer $_ENV et $_SERVER au cas où
+        if (isset($_ENV[$key])) return $_ENV[$key];
+        if (isset($_SERVER[$key])) return $_SERVER[$key];
+        return $default;
+    }
+    return $val;
+}
 
-/** Database password */
-define( 'DB_PASSWORD', '' );
+function env_bool($key, $default = false) {
+    $val = env($key, $default);
+    return filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? (bool)$default;
+}
 
-/** Database hostname */
-define( 'DB_HOST', '127.0.0.1' );
+// ** Database settings (remplace les valeurs statiques) **
+define( 'DB_NAME',     env('DB_NAME', 'IT_DOA') );
+define( 'DB_USER',     env('DB_USER', 'root') );
+define( 'DB_PASSWORD', env('DB_PASSWORD', '') );
+
+$db_host = env('DB_HOST', '127.0.0.1');
+$db_port = env('DB_PORT', '');
+if ($db_port !== '') {
+    // WP accepte "host:port" comme DB_HOST
+    $db_host .= ':' . $db_port;
+}
+define( 'DB_HOST',     $db_host );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );

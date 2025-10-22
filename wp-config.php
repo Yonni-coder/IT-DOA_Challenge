@@ -24,6 +24,7 @@ define( 'DB_NAME', 'IT_DOA' );
 define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', '' );        // <-- chaîne vide si root n'a pas de mdp
 define( 'DB_HOST', '127.0.0.1' );   // <-- force TCP, évite les problèmes de socket
+define( 'MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT );
 define( 'DB_CHARSET', 'utf8mb4' ); 
 
 /** The database collate type. Don't change this if in doubt. */

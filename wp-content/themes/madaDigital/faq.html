@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - MADA-Digital</title>
+    <meta name="description" content="Trouvez des réponses à vos questions sur nos services, processus et délais. Support complet pour tous vos besoins digitaux.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container container">
+            <a href="index.html" class="logo">
+                <span>📱</span> MADA-Digital
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><span>Accueil</span></a></li>
+                <li><a href="apropos.html" class="nav-link"><span>À propos</span></a></li>
+                <li><a href="services.html" class="nav-link"><span>Services</span></a></li>
+                <li><a href="realisations.html" class="nav-link"><span>Réalisations</span></a></li>
+                <li><a href="evenements.html" class="nav-link"><span>Événements</span></a></li>
+                <li><a href="faq.html" class="nav-link active"><span>FAQ</span></a></li>
+                <li><a href="contact.html" class="nav-link"><span>Contact</span></a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                <li><a href="apropos.html" class="mobile-nav-link">À propos</a></li>
+                <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+                <li><a href="realisations.html" class="mobile-nav-link">Réalisations</a></li>
+                <li><a href="evenements.html" class="mobile-nav-link">Événements</a></li>
+                <li><a href="faq.html" class="mobile-nav-link active">FAQ</a></li>
+                <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                <li>
+                    <button class="theme-toggle mobile-theme-toggle" id="mobileThemeToggle" style="margin: 1rem 1.5rem;">
+                        <i class="fas fa-moon"></i> Mode sombre
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- FAQ Content -->
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="badge">Aide & Support</div>
+                <h1><span class="gradient-text">Questions fréquentes</span></h1>
+                <p style="max-width: 700px; margin: 1rem auto; color: var(--muted-foreground);">
+                    Retrouvez les réponses aux questions les plus courantes sur nos services.
+                </p>
+            </div>
+        </section>
+
+        <section style="padding: 4rem 0;">
+            <div class="container" style="max-width: 800px;">
+                <h2 style="margin-bottom: 2rem;">Services & Expertise</h2>
+                
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Quels types de projets web développez-vous ?</span>
+                        <span style="transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            Nous développons des sites vitrines, e-commerce, applications web sur-mesure, PWA (Progressive Web Apps), et applications mobiles hybrides. Nous travaillons avec des technologies modernes comme PHP, Java, Angular, Node.js et React.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Proposez-vous des services d'infogérance ?</span>
+                        <span style="transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            Oui, nous offrons des services d'infogérance complets incluant la maintenance, le monitoring 24/7, les mises à jour de sécurité, et le support technique. Nos équipes interviennent rapidement en cas d'incident.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Travaillez-vous avec des équipements Cisco ?</span>
+                        <span style="transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            Absolument. Nous sommes spécialisés dans la conception, le déploiement et la maintenance d'infrastructures réseau basées sur des équipements Cisco. Nous gérons les switchs, routeurs, points d'accès Wi-Fi et solutions de sécurité.
+                        </div>
+                    </div>
+                </div>
+
+                <h2 style="margin: 3rem 0 2rem;">Processus & Délais</h2>
+
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Quel est le délai moyen pour un projet web ?</span>
+                        <span style="transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            Le délai varie selon la complexité du projet. Un site vitrine nécessite généralement 2-4 semaines, tandis qu'une application web sur-mesure peut prendre 2-6 mois. Nous établissons un planning détaillé lors de la phase de cadrage.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Proposez-vous un support après la livraison ?</span>
+                        <span style="transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            Oui, nous proposons différents niveaux de support après la livraison, incluant la maintenance corrective, les mises à jour de sécurité, l'hébergement et l'assistance technique. Nous adaptons notre offre à vos besoins spécifiques.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item reveal">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Quelle est votre zone d'intervention à Madagascar ?</span>
+                        <span style="transition: transform 0.3s;">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            Nous intervenons sur toute l'île de Madagascar, avec une présence forte à Antsiranana, Antananarivo, Toamasina, Mahajanga, Fianarantsoa, Toliara et Taolagnaro. Nos services à distance sont également disponibles pour toutes les régions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <span>📱</span> MADA-Digital
+                    </div>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1.5rem;">Votre partenaire digital à Madagascar depuis 2009.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">Liens rapides</h3>
+                    <div class="footer-links">
+                        <a href="index.html" class="footer-link">Accueil</a>
+                        <a href="apropos.html" class="footer-link">À propos</a>
+                        <a href="services.html" class="footer-link">Services</a>
+                        <a href="realisations.html" class="footer-link">Réalisations</a>
+                        <a href="evenements.html" class="footer-link">Événements</a>
+                        <a href="faq.html" class="footer-link">FAQ</a>
+                        <a href="contact.html" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">Contact</h3>
+                    <div class="footer-links">
+                        <span style="color: var(--muted-foreground);">P893+25J Antsiranana, Madagascar</span>
+                        <span style="color: var(--muted-foreground);">contact@mada-digital.net</span>
+                        <span style="color: var(--muted-foreground);">+261 XX XX XXX XX</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">Newsletter</h3>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Inscrivez-vous pour recevoir nos dernières actualités.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Votre email" required>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                © <span id="currentYear"></span> MADA-Digital. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Motion.js for animations -->
+    <script type="module">
+        import { animate } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+        window.motionAnimate = animate;
+    </script>
+    
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

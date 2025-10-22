@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - MADA-Digital</title>
+    <meta name="description" content="Une question ? Un projet ? Notre équipe est là pour vous accompagner.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Motion.js for animations -->
+    <script type="module">
+        import { animate } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+        window.motionAnimate = animate;
+    </script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container container">
+            <a href="index.html" class="logo">
+                <span>📱</span> MADA-Digital
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><span>Accueil</span></a></li>
+                <li><a href="apropos.html" class="nav-link"><span>À propos</span></a></li>
+                <li><a href="services.html" class="nav-link"><span>Services</span></a></li>
+                <li><a href="realisations.html" class="nav-link"><span>Réalisations</span></a></li>
+                <li><a href="evenements.html" class="nav-link"><span>Événements</span></a></li>
+                <li><a href="faq.html" class="nav-link"><span>FAQ</span></a></li>
+                <li><a href="contact.html" class="nav-link active"><span>Contact</span></a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                <li><a href="apropos.html" class="mobile-nav-link">À propos</a></li>
+                <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+                <li><a href="realisations.html" class="mobile-nav-link">Réalisations</a></li>
+                <li><a href="evenements.html" class="mobile-nav-link">Événements</a></li>
+                <li><a href="faq.html" class="mobile-nav-link">FAQ</a></li>
+                <li><a href="contact.html" class="mobile-nav-link active">Contact</a></li>
+                <li>
+                    <button class="theme-toggle mobile-theme-toggle" id="mobileThemeToggle" style="margin: 1rem 1.5rem;">
+                        <i class="fas fa-moon"></i> Mode sombre
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Page with Map -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Contactez<span class="gradient-text">-nous</span></h1>
+            <p style="max-width: 700px; margin: 1rem auto; color: var(--muted-foreground);">
+                Une question ? Un projet ? Notre équipe est là pour vous accompagner.
+            </p>
+        </div>
+    </section>
+
+    <section style="padding: 4rem 0;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1000px; margin: 0 auto;">
+                <div>
+                    <h2 style="margin-bottom: 2rem;">Formulaire de contact</h2>
+                    <form class="contact-form reveal">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Nom complet</label>
+                            <input type="text" id="name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Adresse email</label>
+                            <input type="email" id="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="subject">Sujet</label>
+                            <input type="text" id="subject" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">Message</label>
+                            <textarea id="message" class="form-textarea" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Envoyer le message</button>
+                    </form>
+                </div>
+                <div>
+                    <h2 style="margin-bottom: 2rem;">Notre localisation</h2>
+                    <div id="map"></div>
+                    <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">📍</span>
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">Adresse</h3>
+                                <p style="color: var(--muted-foreground);">P893+25J Antsiranana, Madagascar</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">📧</span>
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">Email</h3>
+                                <p style="color: var(--muted-foreground);">contact@mada-digital.net</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">📞</span>
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">Téléphone</h3>
+                                <p style="color: var(--muted-foreground);">+261 XX XX XXX XX</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">🕐</span>
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">Horaires</h3>
+                                <p style="color: var(--muted-foreground);">Lundi - Vendredi: 8h00 - 17h00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <span>📱</span> MADA-Digital
+                    </div>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1.5rem;">Votre partenaire digital à Madagascar depuis 2009.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">Liens rapides</h3>
+                    <div class="footer-links">
+                        <a href="index.html" class="footer-link">Accueil</a>
+                        <a href="apropos.html" class="footer-link">À propos</a>
+                        <a href="services.html" class="footer-link">Services</a>
+                        <a href="realisations.html" class="footer-link">Réalisations</a>
+                        <a href="evenements.html" class="footer-link">Événements</a>
+                        <a href="faq.html" class="footer-link">FAQ</a>
+                        <a href="contact.html" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">Contact</h3>
+                    <div class="footer-links">
+                        <span style="color: var(--muted-foreground);">P893+25J Antsiranana, Madagascar</span>
+                        <span style="color: var(--muted-foreground);">contact@mada-digital.net</span>
+                        <span style="color: var(--muted-foreground);">+261 XX XX XXX XX</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1.5rem;">Newsletter</h3>
+                    <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Inscrivez-vous pour recevoir nos dernières actualités.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Votre email" required>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                © <span id="currentYear"></span> MADA-Digital. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Leaflet JS for Map -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    
+    <!-- Initialize map specifically for contact page -->
+    <script>
+        // Additional initialization for map on contact page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure everything is loaded
+            setTimeout(function() {
+                if (document.getElementById('map')) {
+                    initMap();
+                }
+            }, 100);
+        });
+        
+        // Also try to initialize when window is fully loaded
+        window.addEventListener('load', function() {
+            if (document.getElementById('map') && !window.mapInitialized) {
+                setTimeout(initMap, 200);
+            }
+        });
+    </script>
+</body>
+</html>

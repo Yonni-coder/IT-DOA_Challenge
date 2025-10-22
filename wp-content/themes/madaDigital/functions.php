@@ -17,4 +17,6 @@ add_action('after_setup_theme', 'mdc_setup');
     };
 
     add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
+    add_filter("show_admin_bar", "__return_false");
+    
 ;?>

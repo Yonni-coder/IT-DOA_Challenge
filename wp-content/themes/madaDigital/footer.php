@@ -86,6 +86,8 @@
         </div>
     </div>
 
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js?ver=3.3.1'></script>
+
     <!-- Motion.js for animations -->
     <script type="module">
         import { animate } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';

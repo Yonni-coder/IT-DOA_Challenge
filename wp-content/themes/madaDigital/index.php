@@ -2,10 +2,6 @@
 <?php
     get_header();
 ?>
-
-<?php
-    include('inc/nav.php')
-;?>
     <!-- Navbar -->
     
 

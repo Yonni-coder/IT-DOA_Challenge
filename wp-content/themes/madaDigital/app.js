@@ -3,9 +3,10 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
 
 // Theme Toggle
 const themeToggle = document.getElementById('themeToggle');
-const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const mobileThemeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 const mobileThemeIcon = mobileThemeToggle.querySelector('i');
+const logos = document.querySelectorAll('.logo');
 
 // Check for saved theme preference or default to light
 const savedTheme = localStorage.getItem('theme') || 'light';
@@ -15,6 +16,12 @@ if (savedTheme === 'dark') {
     themeIcon.classList.add('fa-sun');
     mobileThemeIcon.classList.remove('fa-moon');
     mobileThemeIcon.classList.add('fa-sun');
+    logos.forEach(logo => {
+        const logoDark = logo.getAttribute('data-logo-dark');
+        if (logoDark) {
+            logo.src = logoDark;
+        }
+    });
 }
 
 function toggleTheme() {
@@ -26,12 +33,24 @@ function toggleTheme() {
         mobileThemeIcon.classList.remove('fa-moon');
         mobileThemeIcon.classList.add('fa-sun');
         localStorage.setItem('theme', 'dark');
+        logos.forEach(logo => {
+            const logoDark = logo.getAttribute('data-logo-dark');
+            if (logoDark) {
+                logo.src = logoDark;
+            }
+        });
     } else {
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
         mobileThemeIcon.classList.remove('fa-sun');
         mobileThemeIcon.classList.add('fa-moon');
         localStorage.setItem('theme', 'light');
+        logos.forEach(logo => {
+            const logoLight = logo.getAttribute('data-logo-light');
+            if (logoLight) {
+                logo.src = logoLight;
+            }
+        });
     }
 }
 

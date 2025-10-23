@@ -236,7 +236,6 @@ function mdc_save_testimonial_meta($post_id) {
 }
 add_action('save_post_testimonial', 'mdc_save_testimonial_meta');
 
-
 // ============================================
 // ÉVÉNEMENTS
 // ============================================
@@ -248,6 +247,20 @@ function mdc_register_event_meta() {
         'type' => 'string',
         'sanitize_callback' => 'sanitize_text_field',
     ]);
+
+    register_post_meta('evenement', '_event_time_start', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_text_field'
+    ]);
+    
+    register_post_meta('evenement', '_event_time_end', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_text_field'
+    ]);
     
     register_post_meta('evenement', '_event_lieu', [
         'show_in_rest' => true,
@@ -255,8 +268,39 @@ function mdc_register_event_meta() {
         'type' => 'string',
         'sanitize_callback' => 'sanitize_text_field',
     ]);
+    
+    register_post_meta('evenement', '_event_type', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    
+    register_post_meta('evenement', '_event_gallery', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
 }
 add_action('init', 'mdc_register_event_meta');
+
+function mdc_enqueue_event_admin_scripts($hook) {
+    if ('post.php' === $hook || 'post-new.php' === $hook) {
+        global $post;
+        if ($post && 'evenement' === $post->post_type) {
+            wp_enqueue_media();
+            wp_enqueue_script(
+                'mdc-event-gallery',
+                get_template_directory_uri() . '/js/event-gallery.js',
+                ['jquery'],
+                filemtime(get_template_directory() . '/js/event-gallery.js'),
+                true
+            );
+        }
+    }
+}
+add_action('admin_enqueue_scripts', 'mdc_enqueue_event_admin_scripts');
 
 function mdc_add_event_metabox() {
     add_meta_box(
@@ -267,17 +311,49 @@ function mdc_add_event_metabox() {
         'side',
         'default'
     );
+    
+    add_meta_box(
+        'mdc_event_gallery',
+        'Galerie de photos',
+        'mdc_event_gallery_callback',
+        'evenement',
+        'normal',
+        'default'
+    );
 }
 add_action('add_meta_boxes', 'mdc_add_event_metabox');
 
 function mdc_event_meta_callback($post) {
     wp_nonce_field('mdc_save_event_meta', 'mdc_event_nonce');
     $date = get_post_meta($post->ID, '_event_date', true);
+    $time_start = get_post_meta($post->ID, '_event_time_start', true);
+    $time_end = get_post_meta($post->ID, '_event_time_end', true);
     $lieu = get_post_meta($post->ID, '_event_lieu', true);
+    $type = get_post_meta($post->ID, '_event_type', true);
     ?>
+    <p>
+        <label><strong>Type d'événement :</strong></label><br>
+        <select name="event_type" style="width: 100%;">
+            <option value="">Sélectionner un type</option>
+            <option value="formation" <?php selected($type, 'formation'); ?>>Formation</option>
+            <option value="conference" <?php selected($type, 'conference'); ?>>Conférence</option>
+            <option value="atelier" <?php selected($type, 'atelier'); ?>>Atelier</option>
+            <option value="seminaire" <?php selected($type, 'seminaire'); ?>>Séminaire</option>
+            <option value="webinaire" <?php selected($type, 'webinaire'); ?>>Webinaire</option>
+            <option value="networking" <?php selected($type, 'networking'); ?>>Networking</option>
+        </select>
+    </p>
     <p>
         <label><strong>Date :</strong></label><br>
         <input type="date" name="event_date" value="<?php echo esc_attr($date); ?>" style="width: 100%;">
+    </p>
+    <p>
+        <label><strong>Heure de début :</strong></label><br>
+        <input type="time" name="event_time_start" value="<?php echo esc_attr($time_start); ?>" style="width: 100%;">
+    </p>
+    <p>
+        <label><strong>Heure de fin :</strong></label><br>
+        <input type="time" name="event_time_end" value="<?php echo esc_attr($time_end); ?>" style="width: 100%;">
     </p>
     <p>
         <label><strong>Lieu :</strong></label><br>
@@ -286,21 +362,137 @@ function mdc_event_meta_callback($post) {
     <?php
 }
 
+function mdc_event_gallery_callback($post) {
+    wp_nonce_field('mdc_save_event_gallery', 'mdc_event_gallery_nonce');
+    $gallery_ids = get_post_meta($post->ID, '_event_gallery', true);
+    $gallery_ids_array = !empty($gallery_ids) ? explode(',', $gallery_ids) : [];
+    ?>
+    <div class="event-gallery-container">
+        <p style="color: #666; margin-bottom: 15px;">
+            💡 <strong>Conseil :</strong> Ajoutez plusieurs photos pour créer une galerie. 
+            Pour les événements passés, ces photos seront affichées dans une galerie interactive.
+        </p>
+        
+        <div class="event-gallery-images" id="event-gallery-images">
+            <?php if (!empty($gallery_ids_array)) : ?>
+                <?php foreach ($gallery_ids_array as $image_id) : 
+                    $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                    if ($image_url) :
+                ?>
+                    <div class="gallery-image-item" data-id="<?php echo esc_attr($image_id); ?>">
+                        <img src="<?php echo esc_url($image_url); ?>" alt="">
+                        <button type="button" class="remove-gallery-image" title="Supprimer">&times;</button>
+                    </div>
+                <?php 
+                    endif;
+                endforeach; ?>
+            <?php endif; ?>
+        </div>
+        
+        <p style="margin-top: 15px;">
+            <button type="button" class="button button-primary" id="add-gallery-images">
+                📷 Ajouter des images
+            </button>
+            <span style="margin-left: 10px; color: #666; font-size: 12px;">
+                Images sélectionnées : <strong id="images-count"><?php echo count($gallery_ids_array); ?></strong>
+            </span>
+        </p>
+        
+        <input type="hidden" name="event_gallery" id="event-gallery-ids" value="<?php echo esc_attr($gallery_ids); ?>">
+    </div>
+    
+    <style>
+        .event-gallery-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+            min-height: 50px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+        }
+        .event-gallery-images:empty::before {
+            content: '📷 Aucune image ajoutée';
+            color: #999;
+            text-align: center;
+            display: block;
+            padding: 20px;
+        }
+        .gallery-image-item {
+            position: relative;
+            border: 3px solid #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: move;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .gallery-image-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .gallery-image-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        .remove-gallery-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .remove-gallery-image:hover {
+            background: rgba(220, 38, 38, 1);
+            transform: scale(1.1);
+        }
+    </style>
+    <?php
+}
+
 function mdc_save_event_meta($post_id) {
-    if (!isset($_POST['mdc_event_nonce']) || !wp_verify_nonce($_POST['mdc_event_nonce'], 'mdc_save_event_meta')) {
-        return;
+    if (isset($_POST['mdc_event_nonce']) && wp_verify_nonce($_POST['mdc_event_nonce'], 'mdc_save_event_meta')) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        
+        if (isset($_POST['event_date'])) {
+            update_post_meta($post_id, '_event_date', sanitize_text_field($_POST['event_date']));
+        }
+        if (isset($_POST['event_time_start'])) {
+            update_post_meta($post_id, '_event_time_start', sanitize_text_field($_POST['event_time_start']));
+        }
+        if (isset($_POST['event_time_end'])) {
+            update_post_meta($post_id, '_event_time_end', sanitize_text_field($_POST['event_time_end']));
+        }
+        if (isset($_POST['event_lieu'])) {
+            update_post_meta($post_id, '_event_lieu', sanitize_text_field($_POST['event_lieu']));
+        }
+        if (isset($_POST['event_type'])) {
+            update_post_meta($post_id, '_event_type', sanitize_text_field($_POST['event_type']));
+        }
     }
     
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-        return;
-    }
-    
-    if (isset($_POST['event_date'])) {
-        update_post_meta($post_id, '_event_date', sanitize_text_field($_POST['event_date']));
-    }
-    if (isset($_POST['event_lieu'])) {
-        update_post_meta($post_id, '_event_lieu', sanitize_text_field($_POST['event_lieu']));
+    if (isset($_POST['mdc_event_gallery_nonce']) && wp_verify_nonce($_POST['mdc_event_gallery_nonce'], 'mdc_save_event_gallery')) {
+        if (isset($_POST['event_gallery'])) {
+            update_post_meta($post_id, '_event_gallery', sanitize_text_field($_POST['event_gallery']));
+        }
     }
 }
 add_action('save_post_evenement', 'mdc_save_event_meta');
-?>

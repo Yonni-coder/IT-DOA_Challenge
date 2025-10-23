@@ -1,13 +1,13 @@
 <?php 
 
-function mdc_register_post_types () {
+function mdc_register_post_types() {
 
     register_post_type("service", [
         "labels" => [
             "name" => "Services",
             "singular_name" => "Service",
             "add_new_item" => "Ajouter un service",
-            "edit_item" => "Modifier un le service"
+            "edit_item" => "Modifier le service"
         ],
         "public" => true,
         "has_archive" => true,

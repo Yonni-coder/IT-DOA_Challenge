@@ -49,7 +49,8 @@
                 </div>
             </div>
         </section>
-
+        
+        <!-- SECTION SERVICES DYNAMIQUE -->
         <section style="padding: 6rem 0;">
             <div class="container">
                 <div style="text-align: center; margin-bottom: 4rem;" class="reveal">

@@ -31,19 +31,19 @@
             <div class="container">
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-value" data-target="15">0</div>
+                        <div class="stat-value" data-target="<?php echo esc_attr(get_theme_mod('stat_experience', '15')); ?>">0</div>
                         <div style="color: var(--muted-foreground); margin-top: 0.5rem;">Années d'expérience</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" data-target="200">0</div>
+                        <div class="stat-value" data-target="<?php echo esc_attr(get_theme_mod('stat_projets', '200')); ?>">0</div>
                         <div style="color: var(--muted-foreground); margin-top: 0.5rem;">Projets réalisés</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" data-target="50">0</div>
+                        <div class="stat-value" data-target="<?php echo esc_attr(get_theme_mod('stat_clients', '50')); ?>">0</div>
                         <div style="color: var(--muted-foreground); margin-top: 0.5rem;">Clients satisfaits</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">24/7</div>
+                        <div class="stat-value"><?php echo esc_html(get_theme_mod('stat_support', '24/7')); ?></div>
                         <div style="color: var(--muted-foreground); margin-top: 0.5rem;">Support disponible</div>
                     </div>
                 </div>

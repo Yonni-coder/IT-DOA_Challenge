@@ -4,9 +4,11 @@
             <div class="footer-grid">
                 <div>
                     <div class="logo" style="margin-bottom: 1rem;">
-                        <a href="index.html">
+                        <a href="<?php echo home_url('/'); ?>">
                             <img 
-                                src="./assets/img/logo.png" 
+                                src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.png"
+                                data-logo-light="<?= get_template_directory_uri(); ?>/assets/img/logo.png"
+                                data-logo-dark="<?= get_template_directory_uri(); ?>/assets/img/logo.dark.mode.png"
                                 alt="Mada Digital"
                                 class="logo"
                             >

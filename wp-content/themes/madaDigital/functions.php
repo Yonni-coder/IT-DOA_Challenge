@@ -25,6 +25,7 @@ require_once get_template_directory() . '/inc/custom-about-fields-acf.php';
 require_once get_template_directory() . '/inc/custom-fields-faq.php';
 require_once get_template_directory() . '/inc/custom-stat-fields.php';
 require_once get_template_directory() . '/inc/custom-footer-fields.php';
+require_once get_template_directory() . '/inc/custom-contact-fields.php';
 
 function enqueue_custom_scripts() {
     wp_enqueue_style(

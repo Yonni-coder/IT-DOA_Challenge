@@ -1,14 +1,25 @@
 <?php
+
     add_action('after_setup_theme', 'mdc_setup');
 
     function mdc_setup(){
         add_theme_support('menus');
+        add_theme_support('post-thumbnails');
         add_theme_support('title-tag');
+
+        add_theme_support('editor-styles');
+        add_theme_support('wp-block-styles');
+        add_theme_support('align-wide');
+        add_theme_support('responsive-embeds');
+
         register_nav_menus([
             'Menu principal' => 'Menu principal',
             'Menu mobile' => 'Menu mobile',
         ]);
     }
+
+    require_once get_template_directory() . '/inc/custom-post-types.php';
+    require_once get_template_directory() . '/inc/custom-fields-gutenberg.php';
 
     function enqueue_custom_scripts() {
         wp_enqueue_style(
@@ -23,6 +34,7 @@
             filemtime(get_template_directory() . '/app.js'),
             true
         );
+
     }
 
     add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
@@ -36,7 +48,6 @@
             $atts['class'] = $class;
         }
         
-        // Filtres pour le menu mobile
         if($args->theme_location == 'Menu mobile') {
             $class = 'mobile-nav-link';
             if (in_array('current-menu-item', $item->classes) || in_array('current_page_item', $item->classes)) {

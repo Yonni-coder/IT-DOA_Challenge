@@ -20,6 +20,8 @@ function mdc_setup(){
 
 require_once get_template_directory() . '/inc/custom-post-types.php';
 require_once get_template_directory() . '/inc/custom-fields-gutenberg.php';
+require_once get_template_directory() . '/inc/custom-about-fields-acf.php';
+
 
 function enqueue_custom_scripts() {
     wp_enqueue_style(

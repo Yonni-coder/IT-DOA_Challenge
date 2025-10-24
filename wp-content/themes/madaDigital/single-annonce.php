@@ -74,7 +74,7 @@ get_header();
                     </div>
                     <?php endif; ?>
 
-                    <div class="annonce-content reveal">
+                    <div class="card reveal">
                         <div class="content-wrapper">
                             <?php the_content(); ?>
                         </div>
@@ -83,7 +83,7 @@ get_header();
 
                 <div class="annonce-sidebar">
                     <!-- Informations principales -->
-                    <div class="annonce-info-card reveal">
+                    <div class="card reveal">
                         <h3><i class="fas fa-info-circle"></i> Détails de l'annonce</h3>
                         
                         <div class="info-grid">
@@ -132,7 +132,7 @@ get_header();
                     </div>
 
                     <!-- Contact -->
-                    <div class="annonce-contact-card reveal">
+                    <div class="card reveal">
                         <h3><i class="fas fa-envelope"></i> Contact</h3>
                         
                         <div class="contact-grid">
@@ -190,26 +190,10 @@ get_header();
                             </div>
                             <?php endif; ?>
                         </div>
-                        
-                        <?php if ($email || $telephone) : ?>
-                        <div class="contact-actions">
-                            <?php if ($email) : ?>
-                            <a href="mailto:<?php echo esc_attr($email); ?>" class="btn btn-primary">
-                                <i class="fas fa-envelope"></i> Envoyer un email
-                            </a>
-                            <?php endif; ?>
-                            
-                            <?php if ($telephone) : ?>
-                            <a href="tel:<?php echo esc_attr($telephone); ?>" class="btn btn-secondary">
-                                <i class="fas fa-phone"></i> Appeler
-                            </a>
-                            <?php endif; ?>
-                        </div>
-                        <?php endif; ?>
                     </div>
 
                     <!-- Actions -->
-                    <div class="annonce-actions-card reveal">
+                    <div class="card reveal">
                         <h3><i class="fas fa-share-alt"></i> Partager</h3>
                         <div class="share-buttons">
                             <button onclick="shareOnFacebook()" class="share-btn facebook">
@@ -227,10 +211,10 @@ get_header();
                         </div>
                         
                         <div class="action-buttons">
-                            <a href="<?php echo get_permalink(get_page_by_path('annonces')); ?>" class="btn btn-outline">
+                            <a href="<?php echo get_permalink(get_page_by_path('annonces')); ?>" class="btn btn-primary">
                                 <i class="fas fa-arrow-left"></i> Retour aux annonces
                             </a>
-                            <button onclick="window.print()" class="btn btn-outline">
+                            <button onclick="window.print()" class="btn btn-primary">
                                 <i class="fas fa-print"></i> Imprimer
                             </button>
                         </div>
@@ -293,6 +277,7 @@ get_header();
 .annonce-single-content {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    justify-content: start;
     gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -331,19 +316,9 @@ get_header();
     transform: scale(1.02);
 }
 
-/* Content */
-.annonce-content {
-    background: white;
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    border: 1px solid #e5e7eb;
-}
-
 .content-wrapper {
     font-size: 1.125rem;
     line-height: 1.7;
-    color: #374151;
 }
 
 .content-wrapper p {
@@ -403,7 +378,6 @@ get_header();
 .annonce-actions-card h3 {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
-    color: #1f2937;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -427,7 +401,6 @@ get_header();
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem;
-    background: #f8f9fa;
     border-radius: 12px;
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -456,13 +429,11 @@ get_header();
 
 .info-content strong {
     display: block;
-    color: #374151;
     margin-bottom: 0.25rem;
     font-size: 0.95rem;
 }
 
 .info-content span {
-    color: #1f2937;
     font-weight: 600;
     font-size: 1rem;
 }
@@ -484,13 +455,11 @@ get_header();
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: #f8f9fa;
     border-radius: 12px;
     transition: all 0.2s;
 }
 
 .contact-item:hover {
-    background: #e5e7eb;
     transform: translateX(4px);
 }
 
@@ -512,7 +481,6 @@ get_header();
 
 .contact-content strong {
     display: block;
-    color: #374151;
     font-size: 0.9rem;
     margin-bottom: 0.25rem;
 }
@@ -535,56 +503,6 @@ get_header();
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
     margin-top: 1.5rem;
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 0.95rem;
-    text-align: center;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: white;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-}
-
-.btn-secondary {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-}
-
-.btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-}
-
-.btn-outline {
-    background: transparent;
-    color: #374151;
-    border: 2px solid #e5e7eb;
-}
-
-.btn-outline:hover {
-    background: #f8f9fa;
-    border-color: #d1d5db;
-    transform: translateY(-1px);
 }
 
 /* Share Buttons */

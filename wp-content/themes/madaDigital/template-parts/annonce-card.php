@@ -56,9 +56,11 @@ $is_expired = $status === 'expired';
 <div class="annonce-card <?php echo $is_expired ? 'annonce-expired' : ''; ?> reveal">
     <?php if ($thumbnail_url) : ?>
     <div style="width: 100%; height: 220px; overflow: hidden; position: relative;">
-        <img src="<?php echo esc_url($thumbnail_url); ?>" 
-            alt="<?php the_title(); ?>" 
-            style="width: 100%; height: 100%; object-fit: cover; <?php echo $is_expired ? 'filter: grayscale(50%);' : ''; ?>">
+        <img 
+            class="gallery-img"
+            style="border-radius: 20px;"
+            src="<?php echo esc_url($thumbnail_url); ?>" 
+            alt="<?php the_title(); ?>">
         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, transparent, rgba(0,0,0,<?php echo $is_expired ? '0.5' : '0.3'; ?>));"></div>
     </div>
     <?php endif; ?>
@@ -83,6 +85,29 @@ $is_expired = $status === 'expired';
             <?php the_title(); ?>
         </h3>
         
-        <p style="margin-bottom: 1.5rem; line-height: 1.6; font-size: 0.95rem;">
+        <p style="margin-bottom: 1.5rem; line-height: 1.6; font-size: 0.95rem; color: var(--muted-foreground);">
             <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
         </p>
+
+        <?php if (!empty($lieu)) : ?>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; color: var(--muted-foreground); font-size: 0.9rem;">
+            <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i>
+            <span><?php echo esc_html($lieu); ?></span>
+        </div>
+        <?php endif; ?>
+
+        <?php if (!empty($date_fin_formatted) && !$is_expired) : ?>
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; color: var(--muted-foreground); font-size: 0.9rem;">
+            <i class="fas fa-calendar-alt" style="color: var(--primary);"></i>
+            <span>Expire le <?php echo esc_html($date_fin_formatted); ?></span>
+        </div>
+        <?php endif; ?>
+
+        <a style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary); text-decoration: none; font-weight: 600; transition: all .3s;" 
+           class="link-a" 
+           href="<?php the_permalink(); ?>">
+            Voir cette annonce
+            <i class="fas fa-arrow-right" style="font-size: 0.85rem;"></i>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+// About : //
+
+Text : Depuis 2009, MADA-Digital propose ses services pour tous travaux de développement d’application web et mobile, d’installation de réseau informatique intranet et extranet, ainsi que d’installation de solution de télécommunication.
+Notre équipe de professionnels expérimentés effectue tous types d’installation : du réseau local d’un particulier à l’interconnexion d’une grande entreprise. 
+
+Notre objectif est de satisfaire toutes les demandes de nos clients.
+
+Nous œuvrons en grande partie dans le Nord de Madagascar pour les services de télécommunication et réseau.
+Au fil des années, nous avons élargi notre domaine d’intervention dans la capitale (Antananarivo) et dans la partie Est de Madagascar.
+
+Pour les services numériques, notre zone d’intervention ne se limite pas au territoire malgache. Nous pouvons intervenir à distance, partout dans le monde, notamment grâce à l’aide de notre représentant sur Paris, Digispeed.
+
+// End About //
+
+// Services : //
+
+1 - Développement digital
+    Nous sommes principalement spécialisés dans le développement d’application web (JAVA, PHP Angular, DotNe, etc.) et mobile (Android, iOS, etc.).
+2 - Sécurité et protection
+    Nous effectuons l’installation de système de vidéo surveillance, d’alarme intrusion et de géolocalisation dans plusieurs régions de Madagascar.
+3 - Réseau et télécommunication
+    Etant leader en solution de réseau informatique et de télécommunication, nous effectuons toutes installations d'intranet et d'extranet.
+4 - Infogérance
+    Nous assurons la conception et l’intégration de système et de progiciel de type solution ERP ou Business intelligence, ainsi que la maintenance des systèmes d’information.
+5 - Communication digitale
+    Nous assurons la communication digitale de votre marque / entreprise sur les réseaux sociaux afin de vous donner plus de visibilité tout en développant votre notoriété. Animation de communauté, rédaction de contenu, analyse et veille sont les principales missions d'un community manager.
+
+// End Services //
+
+// Contact Mada Digital //
+
+    contact@mada-digital.net
+    ( + 2 6 1) 3 4 05 2 1 3 1 9
+    Lazaret-Nord En face EPP, Antsiranana 201
+
+// End Contact Mada Digital //
+
+// Projects //
+
+1 - Plateforme E-commerce
+    Développement d'une plateforme de vente en ligne complète
+    Création d'une plateforme de vente en ligne complète avec système de paiement sécurisé et gestion des stocks.
+2 - Application Mobile
+    Application de gestion pour entreprise de transport
+    Développement d'une application mobile pour la gestion des livraisons et suivi en temps réel.
+3 - Réseau d'Entreprise
+    Infrastructure réseau complète pour une grande entreprise
+    Conception et déploiement d'une infrastructure réseau complète avec équipements Cisco.
+4 - Système de Sécurité
+    Installation d'un système de vidéosurveillance complet
+    Mise en place d'un système de vidéosurveillance avec contrôle d'accès pour un complexe commercial.
+
+// End Projects //

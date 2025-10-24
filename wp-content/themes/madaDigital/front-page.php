@@ -80,9 +80,7 @@
                                         echo $icon;
                                     } else {
                                         // Icône par défaut
-                                        echo '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                                            </svg>';
+                                        echo '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>';
                                     }
                                 ?>
                             </div>
@@ -237,11 +235,7 @@
                                 <p style="color: var(--muted-foreground);"><?php the_content(); ?></p>
                             </div>
                             <div class="testimonial-author">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <?php the_post_thumbnail('thumbnail', ['class' => 'testimonial-avatar', 'alt' => get_the_title()]); ?>
-                                <?php else : ?>
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="<?php the_title(); ?>" class="testimonial-avatar">
-                                <?php endif; ?>
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070" alt="<?php the_title(); ?>" class="testimonial-avatar">
                                 <div>
                                     <h4><?php the_title(); ?></h4>
                                     <p style="color: var(--muted-foreground); font-size: 0.875rem;">
@@ -300,47 +294,111 @@
         </section>
 
         <!-- SECTION PARTENAIRES DYNAMIQUE -->
-        <section style="padding: 4rem 0; background: var(--muted);">
+        <section style="padding: 4rem 0; background: var(--muted); overflow: hidden;">
             <div class="container">
                 <div style="text-align: center; margin-bottom: 3rem;" class="reveal">
                     <h2 style="font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: 1rem;">
                         Nos <span class="gradient-text">Partenaires</span>
                     </h2>
-                    <p style="color: var(--muted-foreground);">Nous collaborons avec les meilleures technologies</p>
+                    <p style="color: var(--muted-foreground);">Ils nous font confiance</p>
                 </div>
 
-                <div class="partners-grid">
-                    <?php
-                    // Récupérer tous les partenaires
-                    $partenaires = new WP_Query([
-                        'post_type' => 'partenaire',
-                        'posts_per_page' => -1,
-                        'orderby' => 'menu_order',
-                        'order' => 'ASC'
-                    ]);
-                    
-                    if ($partenaires->have_posts()) :
-                        while ($partenaires->have_posts()) : $partenaires->the_post();
-                    ?>
-                        <?php if (has_post_thumbnail()) : ?>
-                            <?php the_post_thumbnail('medium', ['class' => 'partner-logo reveal', 'alt' => get_the_title()]); ?>
-                        <?php endif; ?>
-                    <?php
-                        endwhile;
-                        wp_reset_postdata();
-                    else :
-                    ?>
-                        <!-- Partenaires par défaut -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" alt="Cisco" class="partner-logo reveal">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg" alt="PHP" class="partner-logo reveal">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" class="partner-logo reveal">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" class="partner-logo reveal">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML5" class="partner-logo reveal">
-                    <?php endif; ?>
+                <div class="partners-scroll-container">
+                    <div class="partners-scroll">
+                        <?php
+                        // Récupérer tous les partenaires
+                        $partenaires = new WP_Query([
+                            'post_type' => 'partenaire',
+                            'posts_per_page' => -1,
+                            'orderby' => 'menu_order',
+                            'order' => 'ASC'
+                        ]);
+                        
+                        $logos_html = '';
+                        
+                        if ($partenaires->have_posts()) :
+                            while ($partenaires->have_posts()) : $partenaires->the_post();
+                                if (has_post_thumbnail()) :
+                                    $logos_html .= get_the_post_thumbnail(get_the_ID(), 'medium', [
+                                        'class' => 'partner-logo-scroll',
+                                        'alt' => get_the_title()
+                                    ]);
+                                endif;
+                            endwhile;
+                            wp_reset_postdata();
+                        else :
+                            // Partenaires par défaut
+                            $logos_html = '
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" alt="Cisco" class="partner-logo-scroll">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg" alt="PHP" class="partner-logo-scroll">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" class="partner-logo-scroll">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" alt="Node.js" class="partner-logo-scroll">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML5" class="partner-logo-scroll">
+                            ';
+                        endif;
+                        
+                        // Afficher les logos 2 fois pour l'effet infini
+                        echo $logos_html;
+                        echo $logos_html;
+                        ?>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
+
+    <style>
+        .partners-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.partners-scroll {
+    display: flex;
+    gap: 4rem;
+    animation: scroll-infinite 30s linear infinite;
+    width: fit-content;
+}
+
+.partner-logo-scroll {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.partner-logo-scroll:hover {
+    transform: scale(1.1);
+}
+
+@keyframes scroll-infinite {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause au survol */
+.partners-scroll-container:hover .partners-scroll {
+    animation-play-state: paused;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .partners-scroll {
+        gap: 2rem;
+        animation-duration: 20s;
+    }
+    
+    .partner-logo-scroll {
+        height: 40px;
+    }
+}
+    </style>
 
 <?php get_footer(); ?>

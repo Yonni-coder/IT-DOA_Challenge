@@ -1,6 +1,7 @@
 <?php
 /**
  * Custom Fields pour le Custom Post Type Annonce
+ * À placer dans : inc/annonce-custom-fields.php
  */
 
 // Enregistrer le Custom Post Type "Annonce"

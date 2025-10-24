@@ -100,22 +100,66 @@ function contact_customizer_register($wp_customize) {
 }
 add_action('customize_register', 'contact_customizer_register');
 
-function configure_smtp($phpmailer) {
-    $phpmailer->isSMTP();
-    $phpmailer->Host       = 'smtp.gmail.com';
-    $phpmailer->SMTPAuth   = true;
-    $phpmailer->Port       = 587;
-    $phpmailer->Username   = 'tinognyyonni@gmail.com';
-    $phpmailer->Password   = 'ebjy uabn jhkg oimc';
-    $phpmailer->SMTPSecure = 'tls';
-    $phpmailer->From       = 'tinognyyonni@gmail.com';
-    $phpmailer->FromName   = 'MADA Digital';
-    $phpmailer->SMTPDebug  = 0;
-    $phpmailer->Debugoutput = function($str, $level) {
-        error_log("SMTP Debug level $level: $str");
-    };
-}
-add_action('phpmailer_init', 'configure_smtp');
+// function configure_smtp($phpmailer) {
+//     $phpmailer->isSMTP();
+//     $phpmailer->Host       = 'smtp.gmail.com';
+//     $phpmailer->SMTPAuth   = true;
+//     $phpmailer->Port       = 587;
+//     $phpmailer->Username   = 'tinognyyonni@gmail.com';
+//     $phpmailer->Password   = 'ebjy uabn jhkg oimc';
+//     $phpmailer->SMTPSecure = 'tls';
+//     $phpmailer->From       = 'tinognyyonni@gmail.com';
+//     $phpmailer->FromName   = 'MADA Digital';
+//     $phpmailer->SMTPDebug  = 0;
+//     $phpmailer->Debugoutput = function($str, $level) {
+//         error_log("SMTP Debug level $level: $str");
+//     };
+// }
+// add_action('phpmailer_init', 'configure_smtp');
+
+//Fonction pour FIX le problème d'envoi d'email via SMTP avec Gmail
+// function configure_smtp($phpmailer) {
+//     // Utiliser SMTP
+//     $phpmailer->isSMTP();
+//     $phpmailer->Host       = 'smtp.gmail.com';
+//     $phpmailer->SMTPAuth   = true;
+
+//     // Port TLS
+//     $phpmailer->Port       = 587;
+//     $phpmailer->SMTPSecure = 'tls'; // STARTTLS
+//     $phpmailer->SMTPAutoTLS = true;
+
+//     // Identifiants SMTP (utilise un "App password" Google si 2FA activé)
+//     $phpmailer->Username   = 'tinognyyonni@gmail.com';
+//     $phpmailer->Password   = 'uqvweapyulwpjtwn';
+
+//     // Expéditeur (utiliser setFrom)
+//     try {
+//         $phpmailer->setFrom($phpmailer->Username, 'MADA Digital');
+//     } catch (Exception $e) {
+//         error_log('setFrom error: ' . $e->getMessage());
+//     }
+//     $phpmailer->From = $phpmailer->Username;
+//     $phpmailer->FromName = 'MADA Digital';
+
+//     // Debug : augmente à 2 pour messages détaillés pendant le test
+//     $phpmailer->SMTPDebug  = 2;
+//     $phpmailer->Debugoutput = function($str, $level) {
+//         error_log("SMTP Debug level $level: $str");
+//     };
+
+//     // Options TLS (utile en dev si le serveur a des certificats auto-signés).
+//     // En production, retire ou durcis ces options.
+//     $phpmailer->SMTPOptions = array(
+//         'ssl' => array(
+//             'verify_peer' => false,
+//             'verify_peer_name' => false,
+//             'allow_self_signed' => true
+//         )
+//     );
+// }
+// add_action('phpmailer_init', 'configure_smtp');
+
 
 /**
  * Traiter le formulaire de contact

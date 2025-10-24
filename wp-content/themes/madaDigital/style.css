@@ -460,12 +460,38 @@ h1 {
     box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.1);
 }
 
-.services-grid, .events-grid, .faq-grid, .realisations-grid, .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-    justify-content: center;
+/* règle par défaut */
+.services-grid,
+.events-grid,
+.faq-grid,
+.realisations-grid,
+.testimonials-grid {
+  display: grid;
+  gap: 2rem;
+  margin: 3rem 0;
+  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+}
+
+/* CAS : il n'y a qu'un seul enfant direct (élément) -> centre et limite la largeur */
+.services-grid > :only-child,
+.events-grid > :only-child,
+.faq-grid > :only-child,
+.realisations-grid > :only-child,
+.testimonials-grid > :only-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 100%;
+  max-width: 350px; /* change si tu veux plus petit/grand */
+}
+
+/* s'il y a plus d'un enfant direct -> force multi-colonne (fallback plus spécifique) */
+.services-grid:not(:only-child),
+.events-grid:not(:only-child),
+.faq-grid:not(:only-child),
+.realisations-grid:not(:only-child),
+.testimonials-grid:not(:only-child) {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
 }
 
 .accordion-item {

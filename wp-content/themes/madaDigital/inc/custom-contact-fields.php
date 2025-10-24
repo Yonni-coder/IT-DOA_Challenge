@@ -102,14 +102,18 @@ add_action('customize_register', 'contact_customizer_register');
 
 function configure_smtp($phpmailer) {
     $phpmailer->isSMTP();
-    $phpmailer->Host       = 'smtp.gmail.com'; // ou smtp de votre hébergeur
+    $phpmailer->Host       = 'smtp.gmail.com';
     $phpmailer->SMTPAuth   = true;
     $phpmailer->Port       = 587;
-    $phpmailer->Username   = 'tinognyyonni@gmail.com'; // Remplacez par votre email
-    $phpmailer->Password   = 'ebjy uabn jhkg oimc'; // Mot de passe d'application Gmail
+    $phpmailer->Username   = 'tinognyyonni@gmail.com';
+    $phpmailer->Password   = 'ebjy uabn jhkg oimc';
     $phpmailer->SMTPSecure = 'tls';
-    $phpmailer->From       = 'tinognyyonni@gmail.com'; // Même email que Username
+    $phpmailer->From       = 'tinognyyonni@gmail.com';
     $phpmailer->FromName   = 'MADA Digital';
+    $phpmailer->SMTPDebug  = 0;
+    $phpmailer->Debugoutput = function($str, $level) {
+        error_log("SMTP Debug level $level: $str");
+    };
 }
 add_action('phpmailer_init', 'configure_smtp');
 
@@ -250,26 +254,5 @@ function handle_contact_form() {
 }
 add_action('wp_ajax_contact_form_submit', 'handle_contact_form');
 add_action('wp_ajax_nopriv_contact_form_submit', 'handle_contact_form');
-
-/**
- * Fonction de test d'email (À supprimer après test)
- */
-function test_smtp_email() {
-    if (isset($_GET['test_smtp']) && current_user_can('manage_options')) {
-        $to = get_option('admin_email');
-        $subject = 'Test SMTP WordPress';
-        $message = '<h1>Email de test</h1><p>Si vous recevez cet email, la configuration SMTP fonctionne correctement!</p>';
-        $headers = array('Content-Type: text/html; charset=UTF-8');
-        
-        $sent = wp_mail($to, $subject, $message, $headers);
-        
-        if ($sent) {
-            wp_die('✅ Email envoyé avec succès à ' . $to . '<br><br><a href="' . admin_url() . '">Retour au tableau de bord</a>');
-        } else {
-            wp_die('❌ Échec de l\'envoi. Vérifiez votre configuration SMTP.<br><br><a href="' . admin_url() . '">Retour au tableau de bord</a>');
-        }
-    }
-}
-add_action('init', 'test_smtp_email');
 
 ?>

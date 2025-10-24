@@ -17,6 +17,7 @@
             <div>
                 <h2 style="margin-bottom: 2rem;">Formulaire de contact</h2>
                 <form id="contact-form" class="contact-form reveal">
+                    <?php wp_nonce_field('contact_form_submit', 'contact_nonce'); ?>
                     <div id="form-messages" style="display: none; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;"></div>
                     
                     <div class="form-group">
@@ -145,12 +146,15 @@ function initMap() {
     });
 }
 
-// Gérer la soumission du formulaire
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contact-form');
+    
+    if (!form) return;
+    
     const messagesDiv = document.getElementById('form-messages');
     const btnText = form.querySelector('.btn-text');
     const btnLoading = form.querySelector('.btn-loading');
+    const submitBtn = form.querySelector('button[type="submit"]');
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -158,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Afficher le loader
         btnText.style.display = 'none';
         btnLoading.style.display = 'inline';
-        form.querySelector('button').disabled = true;
+        submitBtn.disabled = true;
         
         // Préparer les données
         const formData = new FormData(form);
@@ -187,21 +191,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 messagesDiv.textContent = data.data.message;
             }
             
-            // Masquer le message après 5 secondes
             setTimeout(() => {
                 messagesDiv.style.display = 'none';
             }, 5000);
         })
         .catch(error => {
+            console.error('Erreur:', error);
             messagesDiv.style.display = 'block';
             messagesDiv.style.background = '#f8d7da';
             messagesDiv.style.color = '#721c24';
-            messagesDiv.textContent = 'Une erreur est survenue';
+            messagesDiv.textContent = 'Une erreur est survenue. Veuillez réessayer.';
         })
         .finally(() => {
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
-            form.querySelector('button').disabled = false;
+            submitBtn.disabled = false;
         });
     });
 });

@@ -44,13 +44,13 @@ Ce dépôt contient un **thème WordPress personnalisé** créé sans constructe
 
 Des captures d'écran de l'interface se trouvent dans le dossier `/screenshots` 
 
-* `/screenshots/page-acceuil.png`
-* `/screenshots/services.png`
-* `/screenshots/evenements.png`
-* `/screenshots/countdown.png`
-* `/screenshots/project.png`
-![Alt](![Page d'accueil](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/2db63a827da5040638b70ba91ffa943b7e3b8291/screenshots/page-acceuil.png)
-)
+![Page d'accueil](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/2db63a827da5040638b70ba91ffa943b7e3b8291/screenshots/page-acceuil.png)
+![Page services](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/8472b6b598399e1121dc0cd44524ef5347b8f5dc/screenshots/services.png)
+![Page evenements](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/8472b6b598399e1121dc0cd44524ef5347b8f5dc/screenshots/evenements.png)
+![count down](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/8472b6b598399e1121dc0cd44524ef5347b8f5dc/screenshots/countdown.png)
+![Page projets](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/8472b6b598399e1121dc0cd44524ef5347b8f5dc/screenshots/project.png)
+
+
 ---
 
 ## Licence

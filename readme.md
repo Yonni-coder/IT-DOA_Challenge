@@ -49,7 +49,8 @@ Des captures d'écran de l'interface se trouvent dans le dossier `/screenshots`
 * `/screenshots/evenements.png`
 * `/screenshots/countdown.png`
 * `/screenshots/project.png`
-![Alt](https://raw.githubusercontent.com/Yonni-coder/IT-DOA_Challenge/main/screenshots/page-accueil.png)
+![Alt](![Page d'accueil](https://github.com/Yonni-coder/IT-DOA_Challenge/blob/2db63a827da5040638b70ba91ffa943b7e3b8291/screenshots/page-acceuil.png)
+)
 ---
 
 ## Licence

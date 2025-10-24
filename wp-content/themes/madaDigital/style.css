@@ -370,6 +370,20 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
+.annonce-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.annonce-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px hsla(25, 95%, 53%, 0.15);
+}
+
 /* Card animations */
 .card {
     background: var(--card);
@@ -462,7 +476,6 @@ h1 {
 
 /* règle par défaut */
 .services-grid,
-.events-grid,
 .faq-grid,
 .realisations-grid,
 .testimonials-grid {
@@ -475,7 +488,6 @@ h1 {
 
 /* CAS : il n'y a qu'un seul enfant direct (élément) -> centre et limite la largeur */
 .services-grid > :only-child,
-.events-grid > :only-child,
 .faq-grid > :only-child,
 .realisations-grid > :only-child,
 .testimonials-grid > :only-child {
@@ -487,7 +499,6 @@ h1 {
 
 /* s'il y a plus d'un enfant direct -> force multi-colonne (fallback plus spécifique) */
 .services-grid:not(:only-child),
-.events-grid:not(:only-child),
 .faq-grid:not(:only-child),
 .realisations-grid:not(:only-child),
 .testimonials-grid:not(:only-child) {
@@ -754,7 +765,7 @@ h1 {
 .testimonial-avatar {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 100%;
     object-fit: cover;
 }
 
@@ -767,16 +778,10 @@ h1 {
 }
 
 .partner-logo {
-    filter: grayscale(100%);
-    opacity: 0.6;
     transition: all 0.3s;
-    max-width: 150px;
+    width: 200px;
+    height: auto;
     margin: 0 auto;
-}
-
-.partner-logo:hover {
-    filter: grayscale(0%);
-    opacity: 1;
 }
 
 /* Newsletter */

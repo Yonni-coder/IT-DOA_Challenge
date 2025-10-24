@@ -142,7 +142,7 @@ function handle_contact_form() {
     }
     
     // Préparer l'email à l'administrateur
-    $admin_email = get_option('admin_email'); // ou 'votre-email@gmail.com'
+    $admin_email = get_option('tinognyyonni@gmail.com'); // ou 'votre-email@gmail.com'
     $email_subject = "[Contact Site] " . $subject;
     
     // Message en HTML

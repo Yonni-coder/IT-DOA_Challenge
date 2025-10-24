@@ -26,6 +26,7 @@ require_once get_template_directory() . '/inc/custom-fields-faq.php';
 require_once get_template_directory() . '/inc/custom-stat-fields.php';
 require_once get_template_directory() . '/inc/custom-footer-fields.php';
 require_once get_template_directory() . '/inc/custom-contact-fields.php';
+require_once get_template_directory() . '/inc/annonce-custom-fields.php';
 
 function enqueue_custom_scripts() {
     wp_enqueue_style(
@@ -78,4 +79,7 @@ function simplify_nav_menu($var) {
 }
 add_filter('nav_menu_css_class', 'simplify_nav_menu', 100, 1);
 add_filter("show_admin_bar", "__return_false");
+add_filter("document_title_separator", function() {
+    return "|";
+});
 ?>

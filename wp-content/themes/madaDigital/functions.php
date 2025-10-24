@@ -79,7 +79,4 @@ function simplify_nav_menu($var) {
 }
 add_filter('nav_menu_css_class', 'simplify_nav_menu', 100, 1);
 add_filter("show_admin_bar", "__return_false");
-add_filter("document_title_separator", function() {
-    return "|";
-});
 ?>

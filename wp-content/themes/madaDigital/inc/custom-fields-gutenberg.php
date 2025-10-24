@@ -11,10 +11,7 @@ function mdc_register_service_meta() {
         'show_in_rest' => true,
         'single' => true,
         'type' => 'string',
-        'sanitize_callback' => 'wp_kses_post',
-        'auth_callback' => function() {
-            return current_user_can('edit_posts');
-        }
+        'sanitize_callback' => 'wp_kses_post'
     ]);
 }
 add_action('init', 'mdc_register_service_meta');
@@ -107,7 +104,7 @@ function mdc_service_meta_callback($post) {
         <?php endforeach; ?>
     </div>
     
-    <input type="hidden" name="service_icon" id="service_icon_input" value="<?php echo esc_attr($icon); ?>">
+    <input type="hidden" name="_service_icon" id="service_icon_input" value="<?php echo esc_attr($icon); ?>">
     
     <div class="custom-icon-area">
         <details>
@@ -133,7 +130,18 @@ function mdc_service_meta_callback($post) {
         }
         
         function useCustomIcon() {
-            const customSvg = document.getElementById('custom_icon_input').value;
+            const customSvg = document.getElementById('custom_icon_input').value.trim();
+            
+            if (!customSvg) {
+                alert('Veuillez entrer un code SVG');
+                return;
+            }
+            
+            if (!customSvg.includes('<svg')) {
+                alert('Le code doit contenir une balise <svg>');
+                return;
+            }
+            
             document.getElementById('service_icon_input').value = customSvg;
             
             document.querySelectorAll('.icon-option').forEach(el => {
@@ -146,10 +154,19 @@ function mdc_service_meta_callback($post) {
     <?php
 }
 
-// Sauvegarder l'icône des services
-function mdc_save_service_meta($post_id) {
+// CORRECTION CRITIQUE : Utiliser save_post avec une priorité et 2 paramètres
+function mdc_save_service_meta($post_id, $post) {
+    // Vérifier le type de post
+    if ($post->post_type !== 'service') {
+        return;
+    }
+    
     // Vérifications de sécurité
-    if (!isset($_POST['mdc_service_nonce']) || !wp_verify_nonce($_POST['mdc_service_nonce'], 'mdc_save_service_meta')) {
+    if (!isset($_POST['mdc_service_nonce'])) {
+        return;
+    }
+    
+    if (!wp_verify_nonce($_POST['mdc_service_nonce'], 'mdc_save_service_meta')) {
         return;
     }
     
@@ -162,11 +179,15 @@ function mdc_save_service_meta($post_id) {
     }
     
     // Sauvegarder l'icône
-    if (isset($_POST['service_icon'])) {
-        update_post_meta($post_id, '_service_icon', wp_kses_post($_POST['service_icon']));
+    if (isset($_POST['_service_icon'])) {
+        $icon_value = wp_kses_post($_POST['_service_icon']);
+        update_post_meta($post_id, '_service_icon', $icon_value);
+    } else {
+        delete_post_meta($post_id, '_service_icon');
     }
 }
-add_action('save_post_service', 'mdc_save_service_meta');
+// CHANGEMENT ICI : save_post au lieu de save_post_service, avec priorité 10 et 2 paramètres
+add_action('save_post', 'mdc_save_service_meta', 10, 2);
 
 
 // ============================================

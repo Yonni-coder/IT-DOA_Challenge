@@ -462,7 +462,7 @@ h1 {
 
 .services-grid, .events-grid, .faq-grid, .realisations-grid, .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 380px));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin: 3rem 0;
     justify-content: center;
